@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --color-primary: #6d5dfc;
+  --color-primary-dark: #5848e8;
+  --color-text: #1f2937;
+  --color-muted: #6b7280;
+  --color-background: #ffffff;
+  --color-surface: #f8f8fc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Vazirmatn', sans-serif;
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
