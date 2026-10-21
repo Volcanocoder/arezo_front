@@ -1,42 +1,11 @@
 <script setup lang="ts">
-const categories = [
-  {
-    title: 'تحصیلی',
-    description: 'کتاب، لپ‌تاپ، شهریه و آموزش',
-    icon: '🎓',
-    color: '#EEF0FF'
-  },
-  {
-    title: 'درمانی',
-    description: 'دارو، درمان و تجهیزات پزشکی',
-    icon: '❤️',
-    color: '#FFF0F3'
-  },
-  {
-    title: 'وسایل ضروری',
-    description: 'وسایل مورد نیاز زندگی',
-    icon: '🛍️',
-    color: '#FFF6E8'
-  },
-  {
-    title: 'تجربه و تفریح',
-    description: 'ساختن یک خاطره زیبا',
-    icon: '✨',
-    color: '#F0F9FF'
-  },
-  {
-    title: 'خانواده',
-    description: 'کمک به خانواده و عزیزان',
-    icon: '🏠',
-    color: '#F4F0FF'
-  },
-  {
-    title: 'سایر',
-    description: 'آرزوهای متفاوت و خاص',
-    icon: '💫',
-    color: '#EEF8F2'
-  }
-]
+const wishCategories = await useWishCategories()
+const categories = computed(() => wishCategories.value.map(c => ({
+  title: c.name,
+  description: c.description,
+  icon: c.icon,
+  color: c.color
+})))
 </script>
 
 <template>
@@ -61,7 +30,7 @@ const categories = [
         <NuxtLink
           v-for="category in categories"
           :key="category.title"
-          to="/wishes"
+          :to="{ path: '/wishes', query: { category: category.title } }"
           class="category-card"
         >
           <div

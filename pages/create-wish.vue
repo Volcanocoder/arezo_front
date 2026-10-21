@@ -6,6 +6,15 @@ definePageMeta({
   layout: 'default'
 })
 
+const siteUrl = useRuntimeConfig().public.siteUrl
+useSeoMeta({
+  title: 'ثبت آرزو | آرزو',
+  description: 'آرزوی خودت را ثبت کن تا پس از بررسی تیم آرزو، دیده شود.',
+  ogTitle: 'ثبت آرزو',
+  ogDescription: 'آرزوی خودت را ثبت کن تا پس از بررسی تیم آرزو، دیده شود.',
+})
+useHead({ link: [{ rel: 'canonical', href: `${siteUrl}/create-wish` }] })
+
 type DocumentKey = 'identity' | 'evidence'
 
 interface WishForm {
@@ -49,15 +58,8 @@ const identityDocument = ref<File | null>(null)
 const evidenceDocument = ref<File | null>(null)
 const imagePreview = ref<string | null>(null)
 
-const categories = [
-  'تحصیلی',
-  'درمانی',
-  'وسایل ضروری',
-  'آموزشی',
-  'تجربه و تفریح',
-  'خانواده',
-  'سایر'
-]
+const wishCategories = await useWishCategories()
+const categories = computed(() => wishCategories.value.map(c => c.name))
 
 const cities = [
   'تهران',
@@ -339,7 +341,7 @@ async function submitWish() {
   submitting.value = true
 
   try {
-    const apiBase = 'http://localhost:8000'
+    const apiBase = useApiBase()
 
     // دریافت کوکی CSRF از Laravel
     await $fetch(`${apiBase}/sanctum/csrf-cookie`, {
@@ -1735,4 +1737,4 @@ onBeforeUnmount(() => {
     width: 100%;
   }
 }
-</style>
+</style>

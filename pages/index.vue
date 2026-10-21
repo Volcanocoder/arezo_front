@@ -1,3 +1,28 @@
+<script setup lang="ts">
+const siteUrl = useRuntimeConfig().public.siteUrl
+const description = 'آرزو پلتفرمی برای ثبت و برآورده کردن آرزوها؛ آرزوی خودت را ثبت کن یا به آرزوی دیگران کمک کن.'
+
+useSeoMeta({
+  title: 'آرزو',
+  description,
+  ogTitle: 'آرزو',
+  ogDescription: description,
+})
+useHead({
+  link: [{ rel: 'canonical', href: siteUrl }],
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'آرزو',
+      url: siteUrl,
+      inLanguage: 'fa-IR',
+    }),
+  }],
+})
+</script>
+
 <template>
   <main class="home" dir="rtl">
     <section class="hero">

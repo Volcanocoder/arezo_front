@@ -7,6 +7,15 @@ definePageMeta({
   layout: 'default'
 })
 
+const siteUrl = useRuntimeConfig().public.siteUrl
+useSeoMeta({
+  title: 'آرزوهای ثبت‌شده | آرزو',
+  description: 'فهرست آرزوهای تأییدشده؛ آرزوها را ببین و برای واقعی شدن یکی از آن‌ها قدمی بردار.',
+  ogTitle: 'آرزوهای ثبت‌شده',
+  ogDescription: 'فهرست آرزوهای تأییدشده؛ آرزوها را ببین و برای واقعی شدن یکی از آن‌ها قدمی بردار.',
+})
+useHead({ link: [{ rel: 'canonical', href: `${siteUrl}/wishes` }] })
+
 interface ApiWish {
   id: number
   title: string
@@ -31,7 +40,7 @@ interface Wish {
 }
 
 const search = ref('')
-const selectedCategory = ref('همه')
+const selectedCategory = ref(typeof useRoute().query.category === 'string' ? (useRoute().query.category as string) : 'همه')
 const selectedCity = ref('همه')
 const sortBy = ref('جدیدترین')
 const loading = ref(true)
@@ -45,15 +54,8 @@ const handleWishImageError = (id: number) => {
   }
 }
 
-const categories = [
-  'همه',
-  'تحصیلی',
-  'درمانی',
-  'وسایل',
-  'آموزشی',
-  'تجربه',
-  'ضروری'
-]
+const wishCategories = await useWishCategories()
+const categories = computed(() => ['همه', ...wishCategories.value.map(c => c.name)])
 
 const cities = computed(() => ['همه', ...new Set(wishes.value.map((wish) => wish.city).filter(Boolean))])
 
@@ -62,7 +64,7 @@ const fetchWishes = async () => {
   errorMessage.value = ''
 
   try {
-    const response = await fetch('http://localhost:8000/api/wishes', {
+    const response = await fetch(`${useApiBase()}/api/wishes`, {
       method: 'GET',
       headers: { Accept: 'application/json' }
     })

@@ -41,8 +41,40 @@ interface MyWish {
   status: DisplayStatus
 }
 
-const API_BASE = 'http://localhost:8000'
+const API_BASE = useApiBase()
 const { user, fetchUser } = useAuth()
+const unread = useUnread()
+const { api } = useApi()
+
+interface NotificationPreview {
+  id: number
+  title: string
+  body: string
+  type: 'info' | 'success' | 'warning'
+  is_read: boolean
+  created_at: string
+}
+
+const latestNotifications = ref<NotificationPreview[]>([])
+const notifIcons: Record<string, string> = { info: '🔔', success: '✅', warning: '⚠️' }
+
+const greetingText = computed(() => {
+  const h = new Date().getHours()
+  return h < 12 ? 'صبح بخیر' : h < 18 ? 'روز بخیر' : 'عصر بخیر'
+})
+
+const loadNotifications = async () => {
+  try {
+    const res = await api<{ data: NotificationPreview[], unread_count: number }>('/api/notifications', { query: { page: 1 } })
+    latestNotifications.value = res.data.slice(0, 4)
+    unread.count.value = res.unread_count
+  } catch {
+    // اعلان‌ها مهم‌تر از خطای کل صفحه نیستند.
+  }
+}
+
+const notifDate = (iso: string) =>
+  new Intl.DateTimeFormat('fa-IR', { dateStyle: 'medium' }).format(new Date(iso))
 
 const statusLabels: Record<ApiWishStatus, DisplayStatus> = {
   pending: 'در انتظار بررسی',
@@ -141,7 +173,10 @@ const fetchDashboardData = async () => {
   }
 }
 
-onMounted(fetchDashboardData)
+onMounted(() => {
+  fetchDashboardData()
+  loadNotifications()
+})
 </script>
 
 <template>
@@ -149,20 +184,22 @@ onMounted(fetchDashboardData)
     <header class="dashboard-header">
       <div>
         <span class="eyebrow">داشبورد</span>
-        <h1>سلام، {{ userName }} 👋</h1>
+        <h1>{{ greetingText }}، {{ userName }} 👋</h1>
         <p>اینجا می‌توانی آرزوها و فعالیت‌های خودت را مدیریت کنی.</p>
       </div>
 
       <div class="header-actions">
         <NuxtLink
-          to="/dashboard/messages"
+          to="/dashboard/notifications"
           class="notification-btn"
-          aria-label="رفتن به پیام‌ها"
+          :aria-label="unread.count.value ? `${unread.count.value} اعلان خوانده‌نشده` : 'اعلان‌ها'"
         >
           🔔
+          <b v-if="unread.count.value" class="bell-count">{{ unread.count.value.toLocaleString('fa-IR') }}</b>
         </NuxtLink>
         <div class="user-avatar" :aria-label="`حساب کاربری ${userName}`">
-          {{ userInitial }}
+          <img v-if="user?.avatar_url" :src="user.avatar_url" alt="">
+          <template v-else>{{ userInitial }}</template>
         </div>
       </div>
     </header>
@@ -265,10 +302,53 @@ onMounted(fetchDashboardData)
         </div>
       </div>
     </section>
+
+    <section class="content-card notif-card" aria-label="آخرین اعلان‌ها">
+      <div class="card-header">
+        <div>
+          <h2>آخرین اعلان‌ها</h2>
+          <p>نتیجه بررسی آرزوها و اطلاعیه‌های آرزو</p>
+        </div>
+        <NuxtLink to="/dashboard/notifications" class="see-all">مشاهده همه</NuxtLink>
+      </div>
+
+      <p v-if="!latestNotifications.length" class="dashboard-message">اعلان جدیدی نداری.</p>
+
+      <ul v-else class="notif-list">
+        <li v-for="n in latestNotifications" :key="n.id" :class="{ unread: !n.is_read }">
+          <span class="n-ico">{{ notifIcons[n.type] }}</span>
+          <div>
+            <strong>{{ n.title }}</strong>
+            <small>{{ n.body }}</small>
+          </div>
+          <time>{{ notifDate(n.created_at) }}</time>
+        </li>
+      </ul>
+    </section>
   </main>
 </template>
 
 <style scoped>
+.user-avatar { overflow: hidden; }
+.user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.notification-btn { display: grid; place-items: center; font-size: 18px; }
+.bell-count { position: absolute; top: -6px; inset-inline-start: -6px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 999px; background: #ef4444; color: #fff; font-size: 11px; display: grid; place-items: center; border: 2px solid #f6f5fc; }
+.quick-action:not(.primary) { color: var(--color-text); }
+.notif-card { margin-top: 24px; }
+.notif-list { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 8px; }
+.notif-list li { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: #faf9ff; border: 1px solid #f0eefb; }
+.notif-list li.unread { background: #f3f0ff; border-color: #ddd6fe; }
+.notif-list div { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.notif-list small { color: #6b7280; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.notif-list time { color: #9ca3af; font-size: 12px; white-space: nowrap; }
+.n-ico { font-size: 20px; }
+@media (max-width: 900px) {
+  .header-actions { display: none !important; }
+  .stats-grid { grid-template-columns: 1fr 1fr !important; }
+  .stat-card { padding: 14px !important; flex-direction: column-reverse; align-items: flex-start !important; }
+  .dashboard-page { padding: 22px 16px; }
+  .dashboard-header { flex-wrap: wrap; }
+}
 
 .dashboard-page {
 

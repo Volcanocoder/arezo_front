@@ -80,7 +80,7 @@ const fetchContributions = async () => {
   errorMessage.value = ''
 
   try {
-    const response = await fetch('http://localhost:8000/api/my/donations', {
+    const response = await fetch(`${useApiBase()}/api/my/donations`, {
       method: 'GET',
       credentials: 'include',
       headers: { Accept: 'application/json' },

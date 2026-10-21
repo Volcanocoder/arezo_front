@@ -18,11 +18,13 @@ interface _GlobalComponents {
   Header: typeof import("../../components/Header.vue")['default']
   HowItWorks: typeof import("../../components/HowItWorks.vue")['default']
   LatestWishes: typeof import("../../components/LatestWishes.vue")['default']
+  LegalDoc: typeof import("../../components/LegalDoc.vue")['default']
   PriorityWishes: typeof import("../../components/PriorityWishes.vue")['default']
   WishCard: typeof import("../../components/WishCard.vue")['default']
   WishCategories: typeof import("../../components/WishCategories.vue")['default']
   WishCta: typeof import("../../components/WishCta.vue")['default']
   AdminSidebar: typeof import("../../components/admin/AdminSidebar.vue")['default']
+  BlogCard: typeof import("../../components/blog/BlogCard.vue")['default']
   DashboardSidebar: typeof import("../../components/dashboard/DashboardSidebar.vue")['default']
   NuxtWelcome: typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue")['default']
   NuxtLayout: typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
@@ -51,11 +53,13 @@ interface _GlobalComponents {
   LazyHeader: LazyComponent<typeof import("../../components/Header.vue")['default']>
   LazyHowItWorks: LazyComponent<typeof import("../../components/HowItWorks.vue")['default']>
   LazyLatestWishes: LazyComponent<typeof import("../../components/LatestWishes.vue")['default']>
+  LazyLegalDoc: LazyComponent<typeof import("../../components/LegalDoc.vue")['default']>
   LazyPriorityWishes: LazyComponent<typeof import("../../components/PriorityWishes.vue")['default']>
   LazyWishCard: LazyComponent<typeof import("../../components/WishCard.vue")['default']>
   LazyWishCategories: LazyComponent<typeof import("../../components/WishCategories.vue")['default']>
   LazyWishCta: LazyComponent<typeof import("../../components/WishCta.vue")['default']>
   LazyAdminSidebar: LazyComponent<typeof import("../../components/admin/AdminSidebar.vue")['default']>
+  LazyBlogCard: LazyComponent<typeof import("../../components/blog/BlogCard.vue")['default']>
   LazyDashboardSidebar: LazyComponent<typeof import("../../components/dashboard/DashboardSidebar.vue")['default']>
   LazyNuxtWelcome: LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
   LazyNuxtLayout: LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>

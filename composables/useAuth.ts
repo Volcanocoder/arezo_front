@@ -5,6 +5,7 @@ type AuthUser = {
     email: string
     mobile: string | null
     role: string
+    avatar_url?: string | null
   }
   
   type AuthResponse = {
@@ -25,7 +26,7 @@ type AuthUser = {
       () => false,
     )
   
-    const apiBase = 'http://localhost:8000'
+    const apiBase = useApiBase()
   
     function getXsrfToken(): string {
       const match = document.cookie.match(
@@ -117,6 +118,39 @@ async function login(
   }
 }
   
+    async function forgotPassword(mobile: string): Promise<{ message: string }> {
+      pending.value = true
+
+      try {
+        return await post<{ message: string }>(
+          '/api/auth/password/forgot',
+          { mobile },
+        )
+      } finally {
+        pending.value = false
+      }
+    }
+
+    async function resetPassword(
+      payload: {
+        mobile: string
+        code: string
+        password: string
+        password_confirmation: string
+      },
+    ): Promise<{ message: string }> {
+      pending.value = true
+
+      try {
+        return await post<{ message: string }>(
+          '/api/auth/password/reset',
+          payload,
+        )
+      } finally {
+        pending.value = false
+      }
+    }
+
     async function fetchUser(): Promise<AuthUser> {
       try {
         const result = await $fetch<{ user: AuthUser }>(
@@ -157,6 +191,8 @@ async function login(
       pending,
       register,
       login,
+      forgotPassword,
+      resetPassword,
       fetchUser,
       logout,
     }

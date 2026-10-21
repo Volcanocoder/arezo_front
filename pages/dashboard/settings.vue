@@ -6,7 +6,7 @@ definePageMeta({
   middleware: 'auth',
 })
 
-const API_BASE_URL = 'http://localhost:8000'
+const API_BASE_URL = useApiBase()
 
 interface AccountUser {
   id: number
@@ -15,6 +15,7 @@ interface AccountUser {
   email: string | null
   city: string | null
   bio: string | null
+  avatar_url?: string | null
   preferences?: {
     wish_updates: boolean
     new_messages: boolean
@@ -57,7 +58,11 @@ const preferences = reactive({
   emailUpdates: false,
 })
 
+const { user: authUser } = useAuth()
+const { api } = useApi()
 const avatarPreview = ref<string | null>(null)
+const avatarUrl = ref<string | null>(null)
+const isUploadingAvatar = ref(false)
 const profileMessage = ref('')
 const passwordMessage = ref('')
 const preferencesMessage = ref('')
@@ -164,6 +169,7 @@ const applyUser = (user: AccountUser) => {
   profile.email = user.email || ''
   profile.city = user.city || 'سایر'
   profile.bio = user.bio || ''
+  avatarUrl.value = user.avatar_url || null
 
   if (user.preferences) {
     preferences.wishUpdates = Boolean(user.preferences.wish_updates)
@@ -192,7 +198,7 @@ const loadSettings = async () => {
   }
 }
 
-const handleAvatarChange = (event: Event) => {
+const handleAvatarChange = async (event: Event) => {
   const input = event.target as HTMLInputElement
   const file = input.files?.[0]
   if (!file) return
@@ -211,8 +217,37 @@ const handleAvatarChange = (event: Event) => {
 
   if (avatarPreview.value) URL.revokeObjectURL(avatarPreview.value)
   avatarPreview.value = URL.createObjectURL(file)
-  // فعلاً فقط پیش‌نمایش است؛ ذخیره دائمی تصویر در مرحله جداگانه پیاده‌سازی می‌شود.
-  profileMessage.value = 'پیش‌نمایش تصویر آماده شد؛ ذخیره دائمی تصویر هنوز فعال نیست.'
+  isUploadingAvatar.value = true
+  profileMessage.value = ''
+
+  try {
+    const body = new FormData()
+    body.append('avatar', file)
+    const res = await api<{ message: string, avatar_url: string | null }>('/api/account/settings/avatar', { method: 'POST', body })
+    avatarUrl.value = res.avatar_url
+    if (authUser.value) authUser.value = { ...authUser.value, avatar_url: res.avatar_url }
+    profileMessage.value = res.message
+  } catch (error) {
+    profileMessage.value = apiErrorMessage(error, 'آپلود تصویر انجام نشد.')
+  } finally {
+    isUploadingAvatar.value = false
+    avatarPreview.value = null
+    input.value = ''
+  }
+}
+
+const removeAvatar = async () => {
+  isUploadingAvatar.value = true
+  try {
+    await api('/api/account/settings/avatar', { method: 'DELETE' })
+    avatarUrl.value = null
+    if (authUser.value) authUser.value = { ...authUser.value, avatar_url: null }
+    profileMessage.value = 'تصویر پروفایل حذف شد.'
+  } catch (error) {
+    profileMessage.value = apiErrorMessage(error, 'حذف تصویر انجام نشد.')
+  } finally {
+    isUploadingAvatar.value = false
+  }
 }
 
 const saveProfile = async () => {
@@ -358,9 +393,9 @@ onMounted(loadSettings)
 
           <div class="avatar">
             <img
-              v-if="avatarPreview"
-              :src="avatarPreview"
-              alt="پیش‌نمایش تصویر پروفایل"
+              v-if="avatarPreview || avatarUrl"
+              :src="avatarPreview || avatarUrl || ''"
+              alt="تصویر پروفایل"
             />
 
             <span v-else>
@@ -376,15 +411,20 @@ onMounted(loadSettings)
             </p>
 
             <label class="upload-btn">
-              انتخاب تصویر
+              {{ isUploadingAvatar ? 'در حال آپلود...' : avatarUrl ? 'تغییر تصویر' : 'انتخاب تصویر' }}
 
               <input
                 type="file"
                 accept="image/png,image/jpeg,image/webp"
                 hidden
+                :disabled="isUploadingAvatar"
                 @change="handleAvatarChange"
               />
             </label>
+
+            <button v-if="avatarUrl" type="button" class="upload-btn remove-avatar" :disabled="isUploadingAvatar" @click="removeAvatar">
+              حذف تصویر
+            </button>
           </div>
 
         </div>
@@ -675,15 +715,12 @@ onMounted(loadSettings)
 
     </section>
 
-    <p class="demo-note">
-      این صفحه فعلاً نمایشی است؛ ذخیره پایدار اطلاعات، آپلود تصویر و تغییر رمز عبور
-      پس از اتصال به API لاراول پیاده‌سازی می‌شوند.
-    </p>
 
   </main>
 </template>
 
 <style scoped>
+.remove-avatar { margin-inline-start: 8px; color: #b91c1c; border: 1px solid #fecaca; background: #fff; cursor: pointer; font-family: inherit; }
 .settings-page {
   min-height: 100vh;
   padding: 35px 40px 70px;

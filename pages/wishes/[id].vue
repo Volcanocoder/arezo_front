@@ -35,10 +35,22 @@ interface Wish {
 
 const route = useRoute()
 const wish = ref<Wish | null>(null)
+
 const loading = ref(true)
 const notFound = ref(false)
 const errorMessage = ref('')
 const imageFailed = ref(false)
+
+const siteUrl = useRuntimeConfig().public.siteUrl
+useSeoMeta({
+  title: () => `${wish.value?.title || 'جزئیات آرزو'} | آرزو`,
+  description: () => (wish.value?.description || 'جزئیات آرزو در پلتفرم آرزو').slice(0, 160),
+  ogTitle: () => wish.value?.title || 'جزئیات آرزو',
+  ogDescription: () => (wish.value?.description || '').slice(0, 160),
+  ogImage: () => wish.value?.imageUrl || undefined,
+  robots: () => (notFound.value ? 'noindex' : 'index, follow'),
+})
+useHead({ link: [{ rel: 'canonical', href: () => `${siteUrl}/wishes/${route.params.id}` }] })
 
 const wishId = computed(() => {
   const param = route.params.id
@@ -71,7 +83,7 @@ const fetchWish = async () => {
   }
 
   try {
-    const response = await fetch(`http://localhost:8000/api/wishes/${encodeURIComponent(wishId.value)}`, {
+    const response = await fetch(`${useApiBase()}/api/wishes/${encodeURIComponent(wishId.value)}`, {
       headers: { Accept: 'application/json' }
     })
 
@@ -168,7 +180,49 @@ const setSuggestedAmount = (amount: number) => {
 
 const formatPrice = (price: number) => new Intl.NumberFormat('fa-IR').format(price)
 
-onMounted(fetchWish)
+// پرداخت آنلاین
+interface PublicGateway { id: number, title: string, is_default: boolean }
+const gateways = ref<PublicGateway[]>([])
+const selectedGatewayId = ref<number | null>(null)
+const { api } = useApi()
+const paying = ref(false)
+const payError = ref('')
+const paymentEnabled = computed(() => gateways.value.length > 0)
+
+const loadGateways = async () => {
+  try {
+    const res = await $fetch<{ data: PublicGateway[] }>(`${useApiBase()}/api/payments/gateways`, {
+      headers: { Accept: 'application/json' },
+    })
+    gateways.value = res.data
+    selectedGatewayId.value = res.data.find(g => g.is_default)?.id ?? res.data[0]?.id ?? null
+  } catch {
+    gateways.value = []
+  }
+}
+
+const startPayment = async () => {
+  if (!donationAmountIsValid.value || paying.value || !wish.value) return
+
+  paying.value = true
+  payError.value = ''
+
+  try {
+    const res = await api<{ payment_url: string }>(`/api/wishes/${wish.value.id}/donate`, {
+      method: 'POST',
+      body: { amount: selectedDonationAmount.value, gateway_id: selectedGatewayId.value },
+    })
+    window.location.href = res.payment_url
+  } catch (error) {
+    payError.value = apiErrorMessage(error, 'شروع پرداخت انجام نشد. دوباره تلاش کن.')
+    paying.value = false
+  }
+}
+
+onMounted(() => {
+  fetchWish()
+  loadGateways()
+})
 watch(wishId, () => {
   void fetchWish()
 })
@@ -294,7 +348,7 @@ watch(wishId, () => {
 
                 <div class="funding-notice">
                   <span class="notice-icon">ⓘ</span>
-                  <p>مجموع بالا فقط کمک‌هایی را حساب می‌کند که پرداختشان در سرور موفق ثبت شده باشد. پرداخت آنلاین هنوز فعال نشده است.</p>
+                  <p>مجموع بالا فقط کمک‌هایی را حساب می‌کند که پرداختشان توسط درگاه تأیید و در سرور ثبت شده باشد.</p>
                 </div>
 
                 <div class="donation-actions">
@@ -323,7 +377,7 @@ watch(wishId, () => {
                   مبلغ موردنیاز این آرزو تأمین شده است.
                 </p>
                 <p v-else class="notice">
-                  امکان انتخاب مبلغ فراهم است؛ پرداخت آنلاین هنوز فعال نشده و فعلاً وجهی دریافت نمی‌شود.
+                  مبلغ دلخواهت را انتخاب کن؛ پرداخت از طریق درگاه امن انجام می‌شود.
                 </p>
               </div>
 
@@ -432,15 +486,30 @@ watch(wishId, () => {
           <strong>{{ formatPrice(remainingAmount) }} تومان</strong>
         </div>
 
-        <div class="gateway-notice" role="status">
+        <div v-if="!paymentEnabled" class="gateway-notice" role="status">
           <span aria-hidden="true">ⓘ</span>
-          <p>درگاه پرداخت هنوز به سایت متصل نشده است. این پنجره فعلاً فقط برای انتخاب مبلغ است؛ هیچ وجهی دریافت یا پرداختی ثبت نمی‌شود.</p>
+          <p>پرداخت آنلاین فعلاً فعال نیست و هیچ وجهی دریافت نمی‌شود. بعد از فعال‌شدن درگاه، همین‌جا می‌توانی پرداخت کنی.</p>
         </div>
+
+        <div v-else class="modal-field">
+          <label v-if="gateways.length > 1" for="gateway-select">درگاه پرداخت</label>
+          <select v-if="gateways.length > 1" id="gateway-select" v-model="selectedGatewayId">
+            <option v-for="g in gateways" :key="g.id" :value="g.id">{{ g.title }}</option>
+          </select>
+          <p class="gateway-hint">پس از زدن دکمه، به صفحه امن درگاه پرداخت منتقل می‌شوی.</p>
+        </div>
+
+        <p v-if="payError" class="amount-error" role="alert">{{ payError }}</p>
 
         <footer class="modal-actions">
           <button type="button" class="modal-secondary" @click="closeDonationModal">بستن</button>
-          <button type="button" class="modal-primary" disabled :title="donationAmountIsValid ? 'پس از اتصال درگاه فعال می‌شود' : 'ابتدا مبلغ معتبر انتخاب کن'">
-            پرداخت پس از اتصال درگاه فعال می‌شود
+          <button
+            type="button"
+            class="modal-primary"
+            :disabled="!paymentEnabled || !donationAmountIsValid || paying"
+            @click="startPayment"
+          >
+            {{ paying ? 'در حال انتقال به درگاه...' : paymentEnabled ? `پرداخت ${donationAmountIsValid ? formatPrice(selectedDonationAmount) + ' تومان' : ''}` : 'پرداخت فعلاً فعال نیست' }}
           </button>
         </footer>
       </section>
@@ -449,6 +518,7 @@ watch(wishId, () => {
 </template>
 
 <style scoped>
+.gateway-hint { margin: 6px 0 0; color: var(--color-muted); font-size: 12px; }
 .wish-page { min-height: 100vh; background: #f8f8fc; }
 .container { width: min(1150px, 100%); margin: 0 auto; }
 .wish-top { padding: 28px 20px; background: #fff; border-bottom: 1px solid #eee; }

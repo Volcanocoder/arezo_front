@@ -3,7 +3,7 @@ import { Server } from 'node:http';
 import { resolve, dirname, join } from 'node:path';
 import nodeCrypto from 'node:crypto';
 import { parentPort, threadId } from 'node:worker_threads';
-import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, createError, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, removeResponseHeader, getQuery as getQuery$1, getRequestWebStream, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus, getRouterParam, readBody, getResponseStatusText } from 'file://D:/project/web/arezoo/arzo/node_modules/h3/dist/index.mjs';
+import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, createError, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, removeResponseHeader, getQuery as getQuery$1, getRequestWebStream, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus, getRouterParam, readBody, setHeader, getResponseStatusText } from 'file://D:/project/web/arezoo/arzo/node_modules/h3/dist/index.mjs';
 import { escapeHtml } from 'file://D:/project/web/arezoo/arzo/node_modules/@vue/shared/dist/shared.cjs.js';
 import viteNodeEntry_mjs from 'file://D:/project/web/arezoo/arzo/node_modules/@nuxt/vite-builder/dist/vite-node-entry.mjs';
 import { viteNodeFetch } from 'file://D:/project/web/arezoo/arzo/node_modules/@nuxt/vite-builder/dist/vite-node.mjs';
@@ -641,16 +641,48 @@ const _inlineRuntimeConfig = {
         "cache": false
       },
       "/dashboard": {
-        "ssr": false
+        "ssr": false,
+        "headers": {
+          "X-Robots-Tag": "noindex, nofollow"
+        }
       },
       "/dashboard/**": {
-        "ssr": false
+        "ssr": false,
+        "headers": {
+          "X-Robots-Tag": "noindex, nofollow"
+        }
       },
       "/admin": {
-        "ssr": false
+        "ssr": false,
+        "headers": {
+          "X-Robots-Tag": "noindex, nofollow"
+        }
       },
       "/admin/**": {
-        "ssr": false
+        "ssr": false,
+        "headers": {
+          "X-Robots-Tag": "noindex, nofollow"
+        }
+      },
+      "/login": {
+        "headers": {
+          "X-Robots-Tag": "noindex"
+        }
+      },
+      "/register": {
+        "headers": {
+          "X-Robots-Tag": "noindex"
+        }
+      },
+      "/forgot-password": {
+        "headers": {
+          "X-Robots-Tag": "noindex"
+        }
+      },
+      "/payment/**": {
+        "headers": {
+          "X-Robots-Tag": "noindex, nofollow"
+        }
       },
       "/_nuxt/builds/meta/**": {
         "headers": {
@@ -664,7 +696,11 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "public": {}
+  "public": {
+    "apiBase": "http://localhost:8000",
+    "siteUrl": "http://localhost:3000",
+    "contactEmail": ""
+  }
 };
 const envOptions = {
   prefix: "NITRO_",
@@ -2067,7 +2103,7 @@ const _tKaDluUdwFnFMDic4Lwrwhcbkx1aLMthL1U7fa2QOUI = (function(nitro) {
 
 const rootDir = "D:/project/web/arezoo/arzo";
 
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"},{"name":"description","content":"پلتفرمی برای ثبت و برآورده کردن آرزوها"}],"link":[],"style":[],"script":[],"noscript":[],"htmlAttrs":{"lang":"fa","dir":"rtl"},"title":"آرزو"};
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"},{"name":"description","content":"پلتفرمی برای ثبت و برآورده کردن آرزوها"},{"property":"og:site_name","content":"آرزو"},{"property":"og:locale","content":"fa_IR"},{"property":"og:type","content":"website"},{"name":"theme-color","content":"#6d5dfc"}],"link":[],"style":[],"script":[],"noscript":[],"htmlAttrs":{"lang":"fa","dir":"rtl"},"title":"آرزو"};
 
 const appRootTag = "div";
 
@@ -2832,10 +2868,14 @@ async function getIslandContext(event) {
 	};
 }
 
+const _lazy__zV9AF = () => Promise.resolve().then(function () { return robots_txt$1; });
+const _lazy_tO8fMG = () => Promise.resolve().then(function () { return sitemap_xml$1; });
 const _lazy_l1et0F = () => Promise.resolve().then(function () { return renderer; });
 
 const handlers = [
   { route: '', handler: _cgy4BM, lazy: false, middleware: true, method: undefined },
+  { route: '/robots.txt', handler: _lazy__zV9AF, lazy: true, middleware: false, method: undefined },
+  { route: '/sitemap.xml', handler: _lazy_tO8fMG, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_error', handler: _lazy_l1et0F, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: handler$1, lazy: false, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_l1et0F, lazy: true, middleware: false, method: undefined }
@@ -3188,6 +3228,77 @@ const styles = {};
 const styles$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: styles
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const robots_txt = defineEventHandler((event) => {
+  const siteUrl = String(useRuntimeConfig(event).public.siteUrl).replace(/\/$/, "");
+  setHeader(event, "Content-Type", "text/plain; charset=utf-8");
+  return [
+    "User-agent: *",
+    "Disallow: /dashboard",
+    "Disallow: /admin",
+    "Disallow: /login",
+    "Disallow: /register",
+    "Disallow: /forgot-password",
+    "Disallow: /payment",
+    "",
+    `Sitemap: ${siteUrl}/sitemap.xml`,
+    ""
+  ].join("\n");
+});
+
+const robots_txt$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: robots_txt
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const sitemap_xml = defineEventHandler(async (event) => {
+  var _a;
+  const config = useRuntimeConfig(event);
+  const siteUrl = String(config.public.siteUrl).replace(/\/$/, "");
+  const apiBase = String(config.public.apiBase).replace(/\/$/, "");
+  const staticPaths = ["/", "/wishes", "/blog", "/about", "/how-it-works", "/contact", "/terms", "/privacy"];
+  const urls = staticPaths.map((path) => ({
+    loc: `${siteUrl}${path}`
+  }));
+  try {
+    const response = await $fetch(`${apiBase}/api/wishes`, {
+      headers: { Accept: "application/json" }
+    });
+    const records = Array.isArray(response) ? response : (_a = response == null ? void 0 : response.data) != null ? _a : [];
+    for (const item of records) {
+      if (!(item == null ? void 0 : item.id)) continue;
+      urls.push({
+        loc: `${siteUrl}/wishes/${item.id}`,
+        lastmod: item.created_at ? new Date(item.created_at).toISOString() : void 0
+      });
+    }
+  } catch {
+  }
+  try {
+    const posts = await $fetch(`${apiBase}/api/blog/sitemap`, {
+      headers: { Accept: "application/json" }
+    });
+    for (const post of posts) {
+      urls.push({
+        loc: `${siteUrl}/blog/${encodeURIComponent(post.slug)}`,
+        lastmod: post.updated_at ? new Date(post.updated_at).toISOString() : void 0
+      });
+    }
+  } catch {
+  }
+  const body = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((u) => `  <url><loc>${u.loc}</loc>${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ""}</url>`).join("\n")}
+</urlset>`;
+  setHeader(event, "Content-Type", "application/xml; charset=utf-8");
+  setHeader(event, "Cache-Control", "public, max-age=3600");
+  return body;
+});
+
+const sitemap_xml$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: sitemap_xml
 }, Symbol.toStringTag, { value: 'Module' }));
 
 function renderPayloadResponse(ssrContext) {

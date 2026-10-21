@@ -63,7 +63,7 @@ interface WishCase {
 }
 
 const route = useRoute()
-const API_BASE = 'http://localhost:8000'
+const API_BASE = useApiBase()
 
 const wish = ref<WishCase | null>(null)
 const isLoading = ref(true)
@@ -444,7 +444,7 @@ onMounted(loadWish)
         تلاش دوباره
       </button>
 
-      <NuxtLink to="/admin" class="back-btn">
+      <NuxtLink to="/admin/wishes" class="back-btn">
         بازگشت به پنل مدیریت
       </NuxtLink>
     </section>
@@ -454,7 +454,7 @@ onMounted(loadWish)
       <!-- Header -->
       <header class="page-header">
         <div class="header-copy">
-          <NuxtLink to="/admin" class="back-link">
+          <NuxtLink to="/admin/wishes" class="back-link">
             ← بازگشت به فهرست آرزوها
           </NuxtLink>
 
@@ -803,7 +803,7 @@ onMounted(loadWish)
     <section v-else class="not-found">
       <h1>پرونده پیدا نشد</h1>
       <p>این شناسه در داده‌های نمونه وجود ندارد.</p>
-      <NuxtLink to="/admin" class="back-btn">
+      <NuxtLink to="/admin/wishes" class="back-btn">
         بازگشت به پنل مدیریت
       </NuxtLink>
     </section>

@@ -32,7 +32,7 @@ const fetchLatestWishes = async () => {
   errorMessage.value = ''
 
   try {
-    const response = await fetch('http://localhost:8000/api/wishes', {
+    const response = await fetch(`${useApiBase()}/api/wishes`, {
       method: 'GET',
       headers: { Accept: 'application/json' }
     })

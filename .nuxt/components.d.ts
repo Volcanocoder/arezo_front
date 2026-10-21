@@ -18,11 +18,13 @@ export const Footer: typeof import("../components/Footer.vue")['default']
 export const Header: typeof import("../components/Header.vue")['default']
 export const HowItWorks: typeof import("../components/HowItWorks.vue")['default']
 export const LatestWishes: typeof import("../components/LatestWishes.vue")['default']
+export const LegalDoc: typeof import("../components/LegalDoc.vue")['default']
 export const PriorityWishes: typeof import("../components/PriorityWishes.vue")['default']
 export const WishCard: typeof import("../components/WishCard.vue")['default']
 export const WishCategories: typeof import("../components/WishCategories.vue")['default']
 export const WishCta: typeof import("../components/WishCta.vue")['default']
 export const AdminSidebar: typeof import("../components/admin/AdminSidebar.vue")['default']
+export const BlogCard: typeof import("../components/blog/BlogCard.vue")['default']
 export const DashboardSidebar: typeof import("../components/dashboard/DashboardSidebar.vue")['default']
 export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const NuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
@@ -51,11 +53,13 @@ export const LazyFooter: LazyComponent<typeof import("../components/Footer.vue")
 export const LazyHeader: LazyComponent<typeof import("../components/Header.vue")['default']>
 export const LazyHowItWorks: LazyComponent<typeof import("../components/HowItWorks.vue")['default']>
 export const LazyLatestWishes: LazyComponent<typeof import("../components/LatestWishes.vue")['default']>
+export const LazyLegalDoc: LazyComponent<typeof import("../components/LegalDoc.vue")['default']>
 export const LazyPriorityWishes: LazyComponent<typeof import("../components/PriorityWishes.vue")['default']>
 export const LazyWishCard: LazyComponent<typeof import("../components/WishCard.vue")['default']>
 export const LazyWishCategories: LazyComponent<typeof import("../components/WishCategories.vue")['default']>
 export const LazyWishCta: LazyComponent<typeof import("../components/WishCta.vue")['default']>
 export const LazyAdminSidebar: LazyComponent<typeof import("../components/admin/AdminSidebar.vue")['default']>
+export const LazyBlogCard: LazyComponent<typeof import("../components/blog/BlogCard.vue")['default']>
 export const LazyDashboardSidebar: LazyComponent<typeof import("../components/dashboard/DashboardSidebar.vue")['default']>
 export const LazyNuxtWelcome: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
 export const LazyNuxtLayout: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>

@@ -1,12 +1,21 @@
 <script setup lang="ts">
-const menuItems = [
+const { user } = useAuth()
+
+const baseItems = [
   { label: 'نمای کلی', to: '/admin', icon: '⌂' },
   { label: 'بررسی آرزوها', to: '/admin/wishes', icon: '♡' },
   { label: 'مدیریت کاربران', to: '/admin/users', icon: '♙' },
-  { label: 'گزارش‌های کاربران', to: '/admin/reports', icon: '⚑' },
+  { label: 'وبلاگ', to: '/admin/blog', icon: '✎' },
   { label: 'دسته‌بندی‌ها', to: '/admin/categories', icon: '▦' },
-  { label: 'تنظیمات سایت', to: '/admin/settings', icon: '⚙' }
+  { label: 'اعلان‌ها', to: '/admin/notifications', icon: '🔔' },
+  { label: 'تراکنش‌ها', to: '/admin/transactions', icon: '💰' },
+  { label: 'پیام‌های تماس', to: '/admin/messages', icon: '✉' }
 ]
+
+// درگاه‌های پرداخت فقط برای مدیر ارشد
+const menuItems = computed(() => user.value?.role === 'super_admin'
+  ? [...baseItems, { label: 'درگاه‌های پرداخت', to: '/admin/gateways', icon: '💳' }]
+  : baseItems)
 </script>
 
 <template>

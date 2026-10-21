@@ -8,7 +8,11 @@
     </div>
   </template>
   
-  <style scoped>
+  <style>
+.admin-layout a { text-decoration: none; }
+</style>
+
+<style scoped>
   .admin-layout {
     min-height: 100vh;
     display: flex;

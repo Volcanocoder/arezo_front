@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 
-const API_BASE = 'http://localhost:8000'
+const API_BASE = useApiBase()
 const route = useRoute()
 
 definePageMeta({

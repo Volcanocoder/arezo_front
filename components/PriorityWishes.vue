@@ -33,7 +33,7 @@ const fetchPriorityWishes = async () => {
   errorMessage.value = ''
 
   try {
-    const response = await fetch('http://localhost:8000/api/wishes/priority', {
+    const response = await fetch(`${useApiBase()}/api/wishes/priority`, {
       method: 'GET',
       headers: { Accept: 'application/json' }
     })

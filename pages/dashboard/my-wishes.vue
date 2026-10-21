@@ -45,7 +45,7 @@ interface MyWish {
   reviewNote: string
 }
 
-const API_BASE = 'http://localhost:8000'
+const API_BASE = useApiBase()
 
 const statusLabels: Record<ApiWishStatus, DisplayStatus> = {
   pending: 'در انتظار بررسی',
