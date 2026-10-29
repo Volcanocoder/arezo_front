@@ -4,7 +4,7 @@ definePageMeta({
   middleware: 'admin',
 })
 
-useHead({ title: 'مدیریت وبلاگ | آرزو' })
+useHead({ title: 'مدیریت وبلاگ | هم‌آرزو' })
 
 interface AdminPostRow {
   id: number

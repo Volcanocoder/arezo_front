@@ -38,9 +38,9 @@ async function handleLogout() {
   <aside class="sidebar" :class="{ open }">
     <div class="sidebar-top">
       <NuxtLink to="/" class="brand">
-        <span class="brand-icon">آ</span>
+        <img src="/logo-mark.svg" alt="" class="brand-icon" width="42" height="42" />
         <div>
-          <strong>آرزو</strong>
+          <strong>هم‌آرزو</strong>
           <small>پنل کاربری</small>
         </div>
       </NuxtLink>
@@ -100,11 +100,7 @@ async function handleLogout() {
 
 .sidebar-top { display: flex; align-items: center; justify-content: space-between; padding: 0 6px; }
 .brand { display: flex; align-items: center; gap: 10px; color: var(--color-text); }
-.brand-icon {
-  width: 42px; height: 42px; display: grid; place-items: center; border-radius: 14px;
-  background: linear-gradient(135deg, #8b7bff, #5848e8); color: #fff; font-weight: 800; font-size: 20px;
-  box-shadow: 0 6px 16px rgba(109, 93, 252, 0.3);
-}
+.brand-icon { width: 42px; height: 42px; flex-shrink: 0; object-fit: contain; }
 .brand div { display: flex; flex-direction: column; gap: 3px; }
 .brand strong { font-size: 17px; }
 .brand small { color: var(--color-muted); font-size: 10px; }

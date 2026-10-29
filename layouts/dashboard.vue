@@ -20,7 +20,7 @@ onBeforeUnmount(() => {
       </button>
 
       <NuxtLink to="/dashboard" class="mobile-brand">
-        <span>آ</span> آرزو
+        <img src="/logo-mark.svg" alt="" width="32" height="32" /> هم‌آرزو
       </NuxtLink>
 
       <NuxtLink to="/dashboard/notifications" class="mobile-bell" aria-label="اعلان‌ها">
@@ -90,10 +90,7 @@ onBeforeUnmount(() => {
   .burger span { width: 18px; height: 2px; border-radius: 4px; background: #4b3fd1; }
 
   .mobile-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; color: var(--color-text); }
-  .mobile-brand span {
-    width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center;
-    background: linear-gradient(135deg, #8b7bff, #5848e8); color: #fff;
-  }
+  .mobile-brand img { width: 32px; height: 32px; flex-shrink: 0; }
 
   .mobile-bell { position: relative; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; background: #f8f8fc; }
   .mobile-bell i { position: absolute; top: 8px; inset-inline-start: 9px; width: 9px; height: 9px; border-radius: 50%; background: #ef4444; border: 2px solid #fff; }

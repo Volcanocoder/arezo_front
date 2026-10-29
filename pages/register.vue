@@ -91,7 +91,7 @@ async function submitRegister() {
 
     <div class="auth-header">
       <span class="badge">
-        به آرزو خوش آمدی ❤️
+        به هم‌آرزو خوش آمدی ❤️
       </span>
 
       <h1>
@@ -372,14 +372,16 @@ async function submitRegister() {
 
   border-radius: 7px;
 
+  border: 0;
   background: transparent;
   color: var(--color-primary);
 
   font-family: inherit;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
 
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Terms */
@@ -392,14 +394,17 @@ async function submitRegister() {
 
   color: var(--color-muted);
 
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.9;
 
   cursor: pointer;
 }
 
 .terms input {
-  margin-top: 2px;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
 
   accent-color: var(--color-primary);
 
@@ -414,11 +419,12 @@ async function submitRegister() {
 
   border-radius: 13px;
 
+  border: 0;
   background: var(--color-primary);
   color: #ffffff;
 
   font-family: inherit;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
 
   cursor: pointer;
@@ -507,11 +513,45 @@ async function submitRegister() {
 
 @media (max-width: 500px) {
   .auth-card {
-    padding: 28px 20px;
+    padding: 26px 18px;
+    border-radius: 22px;
+  }
+
+  .auth-header {
+    margin-bottom: 22px;
   }
 
   .auth-header h1 {
-    font-size: 26px;
+    font-size: 24px;
+  }
+
+  .auth-form {
+    gap: 14px;
+  }
+
+  /* ۱۶px جلوی زوم خودکار iOS هنگام فوکوس روی فیلد را می‌گیرد */
+  .field input {
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .password-input input {
+    padding-left: 72px;
+  }
+
+  .show-password {
+    min-width: 52px;
+    min-height: 36px;
+  }
+
+  .divider {
+    margin: 22px 0;
   }
 }
-</style>
+
+@media (max-width: 360px) {
+  .auth-card {
+    padding: 22px 14px;
+  }
+}
+</style>

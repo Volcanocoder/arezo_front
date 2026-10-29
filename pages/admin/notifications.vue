@@ -4,7 +4,7 @@ definePageMeta({
   middleware: 'admin',
 })
 
-useHead({ title: 'اعلان‌ها و اطلاعیه‌ها | آرزو' })
+useHead({ title: 'اعلان‌ها و اطلاعیه‌ها | هم‌آرزو' })
 
 type NoticeType = 'info' | 'success' | 'warning'
 

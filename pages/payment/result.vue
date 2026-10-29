@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: 'نتیجه پرداخت | آرزو',
+  title: 'نتیجه پرداخت | هم‌آرزو',
   meta: [{ name: 'robots', content: 'noindex,nofollow' }],
 })
 

@@ -28,13 +28,18 @@ export default defineNuxtConfig({
         lang: 'fa',
         dir: 'rtl'
       },
-      title: 'آرزو',
+      title: 'هم‌آرزو',
+      link: [
+        { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }
+      ],
       meta: [
         {
           name: 'description',
           content: 'پلتفرمی برای ثبت و برآورده کردن آرزوها'
         },
-        { property: 'og:site_name', content: 'آرزو' },
+        { property: 'og:site_name', content: 'هم‌آرزو' },
         { property: 'og:locale', content: 'fa_IR' },
         { property: 'og:type', content: 'website' },
         { name: 'theme-color', content: '#6d5dfc' }

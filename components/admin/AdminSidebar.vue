@@ -21,10 +21,10 @@ const menuItems = computed(() => user.value?.role === 'super_admin'
 <template>
   <aside class="admin-sidebar">
     <NuxtLink to="/admin" class="brand">
-      <span class="brand-icon">آ</span>
+      <img src="/logo-mark.svg" alt="" class="brand-icon" width="42" height="42" />
 
       <span class="brand-info">
-        <strong>آرزو</strong>
+        <strong>هم‌آرزو</strong>
         <small>پنل مدیریت</small>
       </span>
     </NuxtLink>
@@ -90,21 +90,7 @@ const menuItems = computed(() => user.value?.role === 'super_admin'
   border-bottom: 1px solid #eeeeee;
 }
 
-.brand-icon {
-  width: 43px;
-  height: 43px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 13px;
-  background: var(--color-primary);
-  color: white;
-
-  font-size: 21px;
-  font-weight: 800;
-}
+.brand-icon { width: 42px; height: 42px; flex-shrink: 0; object-fit: contain; }
 
 .brand-info,
 .profile-info {

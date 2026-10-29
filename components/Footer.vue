@@ -3,7 +3,7 @@ const year = new Date().getFullYear().toLocaleString('fa-IR', { useGrouping: fal
 
 const columns = [
   {
-    title: 'آرزو',
+    title: 'هم‌آرزو',
     links: [
       { to: '/', label: 'خانه' },
       { to: '/wishes', label: 'آرزوها' },
@@ -45,9 +45,9 @@ const columns = [
     <div class="footer-container">
       <div class="brand">
         <NuxtLink to="/" class="logo">
-          <span class="logo-icon">آ</span>
+          <img src="/logo-mark.svg" alt="" class="logo-icon" width="42" height="42" />
           <span class="logo-text">
-            <span>آرزو</span>
+            <span>هم‌آرزو</span>
             <small>هر آرزو، یک امید</small>
           </span>
         </NuxtLink>
@@ -65,7 +65,7 @@ const columns = [
     </div>
 
     <div class="footer-bottom">
-      <span>© {{ year }} تمامی حقوق برای آرزو محفوظ است.</span>
+      <span>© {{ year }} تمامی حقوق برای هم‌آرزو محفوظ است.</span>
       <nav class="legal" aria-label="قوانین">
         <NuxtLink to="/terms">قوانین و شرایط</NuxtLink>
         <NuxtLink to="/privacy">حریم خصوصی</NuxtLink>
@@ -121,16 +121,7 @@ const columns = [
 }
 
 .logo { display: inline-flex; align-items: center; gap: 10px; }
-.logo-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, #8b7bff, #5848e8);
-  font-size: 22px;
-  font-weight: 800;
-}
+.logo-icon { width: 42px; height: 42px; flex-shrink: 0; object-fit: contain; }
 .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
 .logo-text > span { font-size: 18px; font-weight: 800; }
 .logo-text small { margin-top: 3px; color: #a29fb8; font-size: 10px; }

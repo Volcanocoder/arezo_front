@@ -36,10 +36,10 @@ const title = computed(() => {
   if (query.value.page && query.value.page > 1) return `وبلاگ آرزو (صفحه ${query.value.page})`
   return 'وبلاگ آرزو'
 })
-const description = 'مقاله‌ها و راهنمای‌هایی درباره ثبت آرزو، کمک به دیگران و اعتمادسازی در پلتفرم آرزو.'
+const description = 'مقاله‌ها و راهنمای‌هایی درباره ثبت آرزو، کمک به دیگران و اعتمادسازی در پلتفرم هم‌آرزو.'
 
 useSeoMeta({
-  title: () => `${title.value} | آرزو`,
+  title: () => `${title.value} | هم‌آرزو`,
   description,
   ogTitle: () => title.value,
   ogDescription: description,

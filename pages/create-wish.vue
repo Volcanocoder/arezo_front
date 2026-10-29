@@ -8,7 +8,7 @@ definePageMeta({
 
 const siteUrl = useRuntimeConfig().public.siteUrl
 useSeoMeta({
-  title: 'ثبت آرزو | آرزو',
+  title: 'ثبت آرزو | هم‌آرزو',
   description: 'آرزوی خودت را ثبت کن تا پس از بررسی تیم آرزو، دیده شود.',
   ogTitle: 'ثبت آرزو',
   ogDescription: 'آرزوی خودت را ثبت کن تا پس از بررسی تیم آرزو، دیده شود.',

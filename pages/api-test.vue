@@ -26,7 +26,7 @@ onMounted(async () => {
 
 <template>
   <main dir="rtl" style="padding: 32px; font-family: sans-serif;">
-    <h1>تست اتصال آرزو</h1>
+    <h1>تست اتصال هم‌آرزو</h1>
 
     <p v-if="loading">در حال اتصال به بک‌اند...</p>
 

@@ -3,12 +3,10 @@
   
       <header class="auth-header">
         <NuxtLink to="/" class="brand">
-          <span class="brand-icon">
-            آ
-          </span>
+          <img src="/logo-mark.svg" alt="" class="brand-icon" width="42" height="42" />
   
           <span class="brand-text">
-            آرزو
+            هم‌آرزو
           </span>
         </NuxtLink>
       </header>
@@ -18,7 +16,7 @@
       </main>
   
       <footer class="auth-footer">
-        © {{ new Date().getFullYear() }} آرزو
+        © {{ new Date().getFullYear() }} هم‌آرزو
       </footer>
   
     </div>
@@ -28,6 +26,7 @@
   .auth-layout {
     width: 100%;
     min-height: 100vh;
+    min-height: 100dvh;
   
     display: flex;
     flex-direction: column;
@@ -58,24 +57,10 @@
     gap: 10px;
   
     color: var(--color-text);
+    text-decoration: none;
   }
   
-  .brand-icon {
-    width: 42px;
-    height: 42px;
-  
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-    border-radius: 13px;
-  
-    background: var(--color-primary);
-    color: #ffffff;
-  
-    font-size: 21px;
-    font-weight: 800;
-  }
+  .brand-icon { width: 42px; height: 42px; flex-shrink: 0; object-fit: contain; }
   
   .brand-text {
     font-size: 19px;
@@ -115,4 +100,4 @@
       padding: 30px 15px 50px;
     }
   }
-  </style>
+  </style>

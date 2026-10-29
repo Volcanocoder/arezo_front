@@ -29,7 +29,7 @@ if (error.value) {
 const canonical = computed(() => `${siteUrl}/blog/${encodeURIComponent(slug.value)}`)
 
 useSeoMeta({
-  title: () => `${post.value?.meta_title || post.value?.title || 'مقاله'} | آرزو`,
+  title: () => `${post.value?.meta_title || post.value?.title || 'مقاله'} | هم‌آرزو`,
   description: () => post.value?.meta_description || '',
   ogTitle: () => post.value?.meta_title || post.value?.title || '',
   ogDescription: () => post.value?.meta_description || '',
@@ -54,7 +54,7 @@ useHead({
       dateModified: post.value?.updated_at || post.value?.published_at,
       inLanguage: 'fa-IR',
       author: { '@type': 'Person', name: post.value?.author_name || 'تیم آرزو' },
-      publisher: { '@type': 'Organization', name: 'آرزو', url: siteUrl },
+      publisher: { '@type': 'Organization', name: 'هم‌آرزو', url: siteUrl },
       mainEntityOfPage: canonical.value,
     }),
   }],

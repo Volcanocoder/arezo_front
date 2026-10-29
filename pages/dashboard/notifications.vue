@@ -4,7 +4,7 @@ definePageMeta({
   middleware: 'auth',
 })
 
-useHead({ title: 'اعلان‌ها | آرزو' })
+useHead({ title: 'اعلان‌ها | هم‌آرزو' })
 
 interface NotificationItem {
   id: number

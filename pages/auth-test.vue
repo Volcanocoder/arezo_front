@@ -177,7 +177,7 @@ async function logout() {
 
 <template>
   <main dir="rtl" class="auth-test">
-    <h1>تست احراز هویت آرزو</h1>
+    <h1>تست احراز هویت هم‌آرزو</h1>
 
     <label>
       نام و نام خانوادگی

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 const siteUrl = useRuntimeConfig().public.siteUrl
-const description = 'آرزو پلتفرمی برای ثبت و برآورده کردن آرزوها؛ آرزوی خودت را ثبت کن یا به آرزوی دیگران کمک کن.'
+const description = 'هم‌آرزو پلتفرمی برای ثبت و برآورده کردن آرزوها؛ آرزوی خودت را ثبت کن یا به آرزوی دیگران کمک کن.'
 
 useSeoMeta({
-  title: 'آرزو',
+  title: 'هم‌آرزو',
   description,
-  ogTitle: 'آرزو',
+  ogTitle: 'هم‌آرزو',
   ogDescription: description,
 })
 useHead({
@@ -15,7 +15,7 @@ useHead({
     innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'WebSite',
-      name: 'آرزو',
+      name: 'هم‌آرزو',
       url: siteUrl,
       inLanguage: 'fa-IR',
     }),

@@ -9,7 +9,7 @@ definePageMeta({
 
 const siteUrl = useRuntimeConfig().public.siteUrl
 useSeoMeta({
-  title: 'آرزوهای ثبت‌شده | آرزو',
+  title: 'آرزوهای ثبت‌شده | هم‌آرزو',
   description: 'فهرست آرزوهای تأییدشده؛ آرزوها را ببین و برای واقعی شدن یکی از آن‌ها قدمی بردار.',
   ogTitle: 'آرزوهای ثبت‌شده',
   ogDescription: 'فهرست آرزوهای تأییدشده؛ آرزوها را ببین و برای واقعی شدن یکی از آن‌ها قدمی بردار.',

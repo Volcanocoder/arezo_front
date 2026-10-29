@@ -43,8 +43,8 @@ const imageFailed = ref(false)
 
 const siteUrl = useRuntimeConfig().public.siteUrl
 useSeoMeta({
-  title: () => `${wish.value?.title || 'جزئیات آرزو'} | آرزو`,
-  description: () => (wish.value?.description || 'جزئیات آرزو در پلتفرم آرزو').slice(0, 160),
+  title: () => `${wish.value?.title || 'جزئیات آرزو'} | هم‌آرزو`,
+  description: () => (wish.value?.description || 'جزئیات آرزو در پلتفرم هم‌آرزو').slice(0, 160),
   ogTitle: () => wish.value?.title || 'جزئیات آرزو',
   ogDescription: () => (wish.value?.description || '').slice(0, 160),
   ogImage: () => wish.value?.imageUrl || undefined,

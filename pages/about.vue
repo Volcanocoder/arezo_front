@@ -4,9 +4,9 @@ definePageMeta({
 })
 
 useHead({
-  title: 'درباره ما | آرزو',
+  title: 'درباره ما | هم‌آرزو',
   meta: [
-    { name: 'description', content: 'با هدف، ارزش‌ها و شیوه کار پلتفرم آرزو آشنا شوید.' },
+    { name: 'description', content: 'با هدف، ارزش‌ها و شیوه کار پلتفرم هم‌آرزو آشنا شوید.' },
   ],
 })
 </script>
@@ -15,10 +15,10 @@ useHead({
   <main class="about-page">
     <section class="hero">
       <div class="hero-content">
-        <span class="eyebrow"><span class="eyebrow-dot"></span> درباره آرزو</span>
+        <span class="eyebrow"><span class="eyebrow-dot"></span> درباره هم‌آرزو</span>
         <h1>گاهی یک قدم کوچک،<br /><span>شروع یک اتفاق بزرگ است.</span></h1>
         <p class="hero-copy">
-          آرزو فضایی است برای شنیده‌شدن نیازها و نزدیک‌تر شدن آدم‌ها به یکدیگر؛ جایی که هر آرزو با بررسی و احترام فرصت دیده‌شدن پیدا می‌کند.
+          هم‌آرزو فضایی است برای شنیده‌شدن نیازها و نزدیک‌تر شدن آدم‌ها به یکدیگر؛ جایی که هر آرزو با بررسی و احترام فرصت دیده‌شدن پیدا می‌کند.
         </p>
         <div class="hero-actions">
           <NuxtLink to="/wishes" class="btn btn-primary">دیدن آرزوها <span aria-hidden="true">←</span></NuxtLink>
@@ -43,12 +43,12 @@ useHead({
 
     <section class="mission section-wrap">
       <div class="section-heading">
-        <span class="section-kicker">چرا آرزو؟</span>
+        <span class="section-kicker">چرا هم‌آرزو؟</span>
         <h2>برای اینکه شنیده‌شدن،<br class="desktop-break" /> می‌تواند آغاز راه باشد.</h2>
       </div>
       <div class="mission-copy">
         <p>
-          گاهی رسیدن به یک هدف، تهیه یک وسیله ضروری یا عبور از یک دوره سخت به کمک و همراهی دیگران نیاز دارد. آرزو تلاش می‌کند این نیازها را در قالب درخواست‌هایی روشن و قابل بررسی کنار هم قرار دهد.
+          گاهی رسیدن به یک هدف، تهیه یک وسیله ضروری یا عبور از یک دوره سخت به کمک و همراهی دیگران نیاز دارد. هم‌آرزو تلاش می‌کند این نیازها را در قالب درخواست‌هایی روشن و قابل بررسی کنار هم قرار دهد.
         </p>
         <p>
           هدف ما ساختن فضایی محترمانه و قابل اعتماد است؛ فضایی که در آن درخواست‌ها پیش از انتشار بررسی شوند، اطلاعات خصوصی افراد محفوظ بماند و کاربران بتوانند درباره هر آرزو گفت‌وگو کنند.
@@ -60,7 +60,7 @@ useHead({
       <div class="section-wrap">
         <div class="center-heading">
           <span class="section-kicker">اصول ما</span>
-          <h2>آرزو بر پایه چه ارزش‌هایی ساخته شده؟</h2>
+          <h2>هم‌آرزو بر پایه چه ارزش‌هایی ساخته شده؟</h2>
           <p>همراهی وقتی ارزشمندتر است که با احترام، دقت و شفافیت همراه باشد.</p>
         </div>
         <div class="values-grid">

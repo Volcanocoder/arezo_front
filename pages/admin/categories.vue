@@ -4,7 +4,7 @@ definePageMeta({
   middleware: 'admin',
 })
 
-useHead({ title: 'دسته‌بندی‌ها | آرزو' })
+useHead({ title: 'دسته‌بندی‌ها | هم‌آرزو' })
 
 type CategoryType = 'wish' | 'blog'
 

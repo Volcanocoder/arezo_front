@@ -32,8 +32,8 @@ function goToWishes() {
   <main class="error-page" dir="rtl">
     <div class="error-shell">
       <NuxtLink to="/" class="brand" @click="goHome">
-        <span class="brand-icon">آ</span>
-        <span><strong>آرزو</strong><small>هر آرزو، یک امید</small></span>
+        <img src="/logo-mark.svg" alt="" class="brand-icon" width="42" height="42" />
+        <span><strong>هم‌آرزو</strong><small>هر آرزو، یک امید</small></span>
       </NuxtLink>
 
       <section class="error-content">
@@ -67,7 +67,7 @@ function goToWishes() {
 .error-page { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:32px 20px; overflow:hidden; background:linear-gradient(180deg,#fbfaff 0%,#f5f3ff 100%); color:#242338; }
 .error-shell { width:min(100%,760px); }
 .brand { display:inline-flex; align-items:center; gap:10px; color:inherit; text-decoration:none; }
-.brand-icon { width:43px; height:43px; display:flex; align-items:center; justify-content:center; border-radius:14px; background:var(--color-primary,#6d5dfc); color:#fff; font-size:22px; font-weight:800; }
+.brand-icon { width: 42px; height: 42px; flex-shrink: 0; object-fit: contain; }
 .brand > span:last-child { display:flex; flex-direction:column; gap:4px; }
 .brand strong { font-size:17px; font-weight:800; }
 .brand small { color:#88869a; font-size:10px; }

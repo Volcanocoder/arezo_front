@@ -24,7 +24,7 @@ const { api } = useApi()
 const postId = computed(() => String(route.params.id))
 const isNew = computed(() => postId.value === 'new')
 
-useHead({ title: () => `${isNew.value ? 'مقاله جدید' : 'ویرایش مقاله'} | آرزو` })
+useHead({ title: () => `${isNew.value ? 'مقاله جدید' : 'ویرایش مقاله'} | هم‌آرزو` })
 
 const form = reactive<PostForm>({
   title: '',

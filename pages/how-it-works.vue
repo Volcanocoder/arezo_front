@@ -4,9 +4,9 @@ definePageMeta({
 })
 
 useHead({
-  title: 'چطور کار می‌کند؟ | آرزو',
+  title: 'چطور کار می‌کند؟ | هم‌آرزو',
   meta: [
-    { name: 'description', content: 'مراحل ثبت، بررسی و مشاهده آرزوها در پلتفرم آرزو.' },
+    { name: 'description', content: 'مراحل ثبت، بررسی و مشاهده آرزوها در پلتفرم هم‌آرزو.' },
   ],
 })
 
@@ -46,7 +46,7 @@ const steps = [
   <main class="how-page">
     <section class="hero">
       <div class="hero-copy">
-        <span class="eyebrow"><span class="eyebrow-dot"></span> راهنمای استفاده از آرزو</span>
+        <span class="eyebrow"><span class="eyebrow-dot"></span> راهنمای استفاده از هم‌آرزو</span>
         <h1>از ثبت یک آرزو<br /><span>تا شروع یک همراهی</span></h1>
         <p>مراحل کار ساده‌اند: درخواست ثبت می‌شود، بررسی می‌شود و پس از تأیید، برای دیگران قابل مشاهده خواهد بود.</p>
         <div class="hero-actions">
@@ -70,7 +70,7 @@ const steps = [
       <div class="section-wrap">
         <div class="section-heading">
           <span class="section-kicker">چهار گام ساده</span>
-          <h2>آرزو چطور کار می‌کند؟</h2>
+          <h2>هم‌آرزو چطور کار می‌کند؟</h2>
           <p>در هر مرحله تلاش می‌کنیم اطلاعات روشن باشد و حریم خصوصی افراد حفظ شود.</p>
         </div>
         <div class="steps-list">
@@ -102,7 +102,7 @@ const steps = [
       <div class="payment-icon" aria-hidden="true">ⓘ</div>
       <div>
         <h2>وضعیت پرداخت آنلاین</h2>
-        <p>در حال حاضر امکان پرداخت آنلاین از طریق درگاه در آرزو فعال نشده است. می‌توانی آرزوها را ببینی و درباره آن‌ها گفت‌وگو کنی، اما این صفحه به معنی فعال بودن دریافت یا انتقال وجه نیست.</p>
+        <p>در حال حاضر امکان پرداخت آنلاین از طریق درگاه در هم‌آرزو فعال نشده است. می‌توانی آرزوها را ببینی و درباره آن‌ها گفت‌وگو کنی، اما این صفحه به معنی فعال بودن دریافت یا انتقال وجه نیست.</p>
       </div>
     </section>
 

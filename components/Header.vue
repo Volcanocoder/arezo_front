@@ -80,10 +80,10 @@ const handleLogout = async () => {
 <template>
   <header class="header" :class="{ scrolled }">
     <div class="header-container">
-      <NuxtLink to="/" class="logo" aria-label="آرزو؛ صفحه اصلی">
-        <span class="logo-icon">آ</span>
+      <NuxtLink to="/" class="logo" aria-label="هم‌آرزو؛ صفحه اصلی">
+        <img src="/logo-mark.svg" alt="" class="logo-icon" width="42" height="42" />
         <span class="logo-text">
-          <span>آرزو</span>
+          <span>هم‌آرزو</span>
           <small>هر آرزو، یک امید</small>
         </span>
       </NuxtLink>
@@ -220,18 +220,7 @@ const handleLogout = async () => {
 
 .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 
-.logo-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg, #8b7bff, var(--color-primary-dark));
-  color: #fff;
-  font-size: 22px;
-  font-weight: 800;
-  box-shadow: 0 6px 16px rgba(109, 93, 252, 0.35);
-}
+.logo-icon { width: 42px; height: 42px; flex-shrink: 0; object-fit: contain; }
 
 .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
 .logo-text > span { font-size: 18px; font-weight: 800; color: var(--color-text); }
