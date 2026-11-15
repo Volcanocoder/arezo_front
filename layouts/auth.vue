@@ -1,3 +1,7 @@
+<script setup lang="ts">
+onMounted(() => { document.body.style.overflow = '' })
+</script>
+
 <template>
     <div class="auth-layout">
   
@@ -100,4 +104,4 @@
       padding: 30px 15px 50px;
     }
   }
-  </style>
+  </style>

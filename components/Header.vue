@@ -58,6 +58,11 @@ watch(menuOpen, (open) => {
   if (import.meta.client) document.body.style.overflow = open ? 'hidden' : ''
 })
 
+// با رفتن به layout دیگر (مثل /register) هدر از بین می‌رود؛ قفل اسکرول نباید بماند.
+onBeforeUnmount(() => {
+  if (import.meta.client) document.body.style.overflow = ''
+})
+
 const handleLogout = async () => {
   if (loggingOut.value) return
 
