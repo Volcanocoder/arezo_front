@@ -19,6 +19,8 @@ interface Item {
   review_note: string | null
   has_image: boolean
   created_at: string
+  requests_count: number | null
+  pending_requests_count: number | null
   owner: Person | null
 }
 
@@ -175,9 +177,14 @@ onMounted(load)
           <p class="meta">{{ i.category }} · {{ i.condition_label }} · {{ i.city }} · {{ date(i.created_at) }}</p>
           <p class="desc">{{ i.description }}</p>
           <p v-if="i.owner" class="meta">آگهی‌دهنده: {{ i.owner.name }} — <span dir="ltr">{{ i.owner.mobile }}</span></p>
+          <p v-if="i.requests_count" class="meta">
+            {{ i.requests_count }} درخواست
+            <strong v-if="i.pending_requests_count" class="warn">({{ i.pending_requests_count }} در انتظار بررسی)</strong>
+          </p>
           <p v-if="i.review_note" class="note">یادداشت: {{ i.review_note }}</p>
 
           <div class="actions">
+            <NuxtLink :to="`/admin/kindness/${i.id}`" class="det">جزئیات و بررسی</NuxtLink>
             <button v-if="i.status === 'pending'" class="ok" :disabled="busyId === i.id" @click="changeItem(i, 'approved')">تأیید</button>
             <button v-if="i.status === 'pending'" class="no" :disabled="busyId === i.id" @click="changeItem(i, 'rejected')">رد</button>
             <button v-if="i.status === 'approved'" class="no" :disabled="busyId === i.id" @click="changeItem(i, 'rejected')">حذف آگهی</button>
@@ -205,6 +212,7 @@ onMounted(load)
         <p v-if="r.review_note" class="note">یادداشت: {{ r.review_note }}</p>
 
         <div class="actions">
+          <NuxtLink v-if="r.item" :to="`/admin/kindness/${r.item.id}`" class="det">جزئیات آگهی و درخواست‌ها</NuxtLink>
           <button v-if="r.status === 'pending'" class="ok" :disabled="busyId === r.id" @click="changeRequest(r, 'approved')">تأیید درخواست</button>
           <button v-if="r.status === 'pending'" class="no" :disabled="busyId === r.id" @click="changeRequest(r, 'rejected')">رد</button>
           <button v-if="r.status === 'approved'" class="ok" :disabled="busyId === r.id" @click="changeRequest(r, 'completed')">ثبت تحویل</button>
@@ -248,6 +256,8 @@ h3 { margin: 0; font-size: 16px; }
 .badge.rejected { background: #fef2f2; color: #b91c1c; }
 .badge.reserved { background: #fff7ed; color: #c2410c; }
 .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.actions .det { display: inline-flex; align-items: center; border-radius: 10px; padding: 8px 16px; background: #eef2ff; color: #4338ca; font-weight: 800; text-decoration: none; font-size: 14px; }
+.warn { color: #c2410c; }
 .actions button { border: 0; border-radius: 10px; padding: 8px 16px; font-family: inherit; font-weight: 800; cursor: pointer; }
 .actions .ok { background: #16a34a; color: #fff; }
 .actions .no { background: #fee2e2; color: #b91c1c; }

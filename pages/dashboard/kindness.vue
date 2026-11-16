@@ -13,6 +13,7 @@ interface MyItem {
   city: string
   status: string
   review_note: string | null
+  image_url: string | null
   requests_count: number
   created_at: string
 }
@@ -79,6 +80,7 @@ onMounted(async () => {
     <template v-else-if="tab === 'items'">
       <p v-if="!items.length" class="state">هنوز آگهی‌ای ثبت نکرده‌ای.</p>
       <article v-for="i in items" :key="i.id" class="card">
+        <img v-if="i.image_url" class="thumb" :src="i.image_url" alt="" loading="lazy">
         <div class="row">
           <h3>{{ i.title }}</h3>
           <span class="badge" :class="i.status">{{ itemLabels[i.status] ?? i.status }}</span>
@@ -86,6 +88,10 @@ onMounted(async () => {
         <p class="meta">{{ i.category }} · {{ i.city }} · {{ date(i.created_at) }}</p>
         <p v-if="i.requests_count" class="meta">{{ new Intl.NumberFormat('fa-IR').format(i.requests_count) }} درخواست</p>
         <p v-if="i.review_note" class="note">پیام بررسی: {{ i.review_note }}</p>
+        <div class="acts">
+          <NuxtLink v-if="['pending', 'approved', 'rejected'].includes(i.status)" :to="`/kindness/edit/${i.id}`" class="btn">ویرایش آگهی</NuxtLink>
+          <NuxtLink v-if="i.status === 'approved' || i.status === 'reserved'" :to="`/kindness/${i.id}`" class="btn ghost">مشاهده در دیوار</NuxtLink>
+        </div>
       </article>
     </template>
 
@@ -122,6 +128,10 @@ h3 { margin: 0; font-size: 16px; }
 .meta { margin: 0; color: #94a3b8; font-size: 13px; }
 .msg { margin: 0; color: #334155; line-height: 2; }
 .note { margin: 0; color: #b45309; font-size: 13px; }
+img.thumb { width: 96px; height: 96px; border-radius: 12px; object-fit: cover; background: #f1f5f9; }
+.acts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.btn { display: inline-flex; min-height: 40px; align-items: center; padding: 0 16px; border-radius: 10px; background: var(--color-primary); color: #fff; text-decoration: none; font-weight: 800; font-size: 13px; }
+.btn.ghost { background: #fff; color: var(--color-primary); border: 1px solid #ddd6fe; }
 .link { color: var(--color-primary); font-weight: 800; font-size: 13px; text-decoration: none; }
 .badge { padding: 3px 12px; border-radius: 999px; font-size: 12px; font-weight: 800; background: #eef2ff; color: #4338ca; }
 .badge.approved, .badge.completed, .badge.given { background: #ecfdf3; color: #15803d; }
