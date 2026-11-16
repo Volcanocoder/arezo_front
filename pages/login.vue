@@ -6,6 +6,13 @@ definePageMeta({
 })
 
 const { login, pending } = useAuth()
+const route = useRoute()
+
+// فقط مسیر داخلی سایت؛ جلوگیری از open redirect.
+const redirect = computed(() => {
+  const r = route.query.redirect
+  return typeof r === 'string' && r.startsWith('/') && !r.startsWith('//') ? r : null
+})
 
 const mobile = ref('')
 const password = ref('')
@@ -56,7 +63,9 @@ async function submitLogin() {
       password: password.value,
     })
 
-    if (
+    if (redirect.value) {
+      await navigateTo(redirect.value)
+    } else if (
       result.user.role === 'admin' ||
       result.user.role === 'super_admin'
     ) {
@@ -164,7 +173,7 @@ async function submitLogin() {
     <p class="register-text">
       حساب کاربری نداری؟
 
-      <NuxtLink to="/register">
+      <NuxtLink :to="redirect ? { path: '/register', query: { redirect } } : '/register'">
         ثبت‌نام کن
       </NuxtLink>
     </p>

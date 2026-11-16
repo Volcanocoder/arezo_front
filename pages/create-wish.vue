@@ -3,7 +3,8 @@
 import { computed, onBeforeUnmount, reactive, ref } from 'vue'
 
 definePageMeta({
-  layout: 'default'
+  layout: 'default',
+  middleware: 'auth',
 })
 
 const siteUrl = useRuntimeConfig().public.siteUrl
