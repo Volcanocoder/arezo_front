@@ -9,6 +9,8 @@ const baseItems = [
   { label: 'دسته‌بندی‌ها', to: '/admin/categories', icon: '▦' },
   { label: 'اعلان‌ها', to: '/admin/notifications', icon: '🔔' },
   { label: 'تراکنش‌ها', to: '/admin/transactions', icon: '💰' },
+  { label: 'دیوار مهربانی', to: '/admin/kindness', icon: '🤝' },
+  { label: 'رتبه‌بندی خیرین', to: '/admin/leaderboard', icon: '🏆' },
   { label: 'پیام‌های تماس', to: '/admin/messages', icon: '✉' }
 ]
 
