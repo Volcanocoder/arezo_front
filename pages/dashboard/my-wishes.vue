@@ -496,6 +496,14 @@ const formatDate = (value: string) => {
 
             </NuxtLink>
 
+            <NuxtLink
+              v-if="wish.status === 'نیازمند تکمیل اطلاعات'"
+              :to="`/dashboard/edit-wish/${wish.id}`"
+              class="secondary-action"
+            >
+              ویرایش و تکمیل اطلاعات
+            </NuxtLink>
+
             <!-- <button
 
               type="button"
