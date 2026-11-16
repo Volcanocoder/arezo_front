@@ -24,6 +24,7 @@ const initial = computed(() => displayName.value.trim().charAt(0) || 'آ')
 const links = [
   { to: '/', label: 'خانه' },
   { to: '/wishes', label: 'آرزوها' },
+  { to: '/kindness', label: 'دیوار مهربانی' },
   { to: '/blog', label: 'وبلاگ' },
   { to: '/about', label: 'درباره ما' },
   { to: '/how-it-works', label: 'چطور کار می‌کند؟' },

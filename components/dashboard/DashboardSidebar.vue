@@ -10,6 +10,7 @@ const menuItems = [
   { label: 'نمای کلی', to: '/dashboard', icon: '⌂' },
   { label: 'آرزوهای من', to: '/dashboard/my-wishes', icon: '♡' },
   { label: 'کمک‌های من', to: '/dashboard/my-contributions', icon: '🤝' },
+  { label: 'دیوار مهربانی', to: '/dashboard/kindness', icon: '🎁' },
   { label: 'پیام‌ها', to: '/dashboard/messages', icon: '💬' },
   { label: 'اعلان‌ها', to: '/dashboard/notifications', icon: '🔔' },
   { label: 'تنظیمات حساب', to: '/dashboard/settings', icon: '⚙' },

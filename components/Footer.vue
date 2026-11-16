@@ -7,6 +7,7 @@ const columns = [
     links: [
       { to: '/', label: 'خانه' },
       { to: '/wishes', label: 'آرزوها' },
+      { to: '/kindness', label: 'دیوار مهربانی' },
       { to: '/create-wish', label: 'ثبت آرزو' },
       { to: '/blog', label: 'وبلاگ' },
     ],

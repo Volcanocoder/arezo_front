@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
   const siteUrl = String(config.public.siteUrl).replace(/\/$/, '')
   const apiBase = String(config.public.apiBase).replace(/\/$/, '')
 
-  const staticPaths = ['/', '/wishes', '/blog', '/about', '/how-it-works', '/contact', '/terms', '/privacy']
+  const staticPaths = ['/', '/wishes', '/kindness', '/blog', '/about', '/how-it-works', '/contact', '/terms', '/privacy']
   const urls: { loc: string, lastmod?: string }[] = staticPaths.map(path => ({
     loc: `${siteUrl}${path}`,
   }))
